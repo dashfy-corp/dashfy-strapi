@@ -1,9 +1,73 @@
 version: 2.1
 
+restore_dependencies: &restore_dependencies
+  name: "Restoring dependencies from cache..."
+  keys:
+    - npm-deps-{{ checksum "package-lock.json" }}
+
 defaults: &defaults
-  working_directory: ~/dashfy
+  working_directory: ~/app
   docker:
     - image: "circleci/node:10.16.0"
       auth:
         username: $DOCKERHUB_USERNAME
         password: $DOCKERHUB_PASSWORD
+
+orbs:
+  gcp-gcr: circleci/gcp-gcr@0.8.0
+  cloudrun: versbox/gcp-cloud-run@1.0.0
+
+jobs:
+  preload:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: "Installing dependencies..."
+          command: npm ci
+      - save_cache:
+          key: npm-deps-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+
+  build:
+    executor: gcp-gcr/default
+    working_directory: ~/app
+    steps:
+      - checkout
+      - restore_cache: *restore_dependencies
+      - gcp-gcr/gcr-auth
+      - gcp-gcr/build-image:
+          dockerfile: Dockerfile.prod
+          image: dashfy/backend
+          registry-url: us.gcr.io
+          tag: latest
+      - gcp-gcr/push-image:
+          image: dashfy/backend
+          registry-url: us.gcr.io
+          tag: latest
+
+
+  deploy:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - cloudrun/init
+      - cloudrun/deploy:
+          image: 'us.gcr.io/${GOOGLE_PROJECT_ID}/dashfy/backend:latest'
+          region: '${GOOGLE_COMPUTE_ZONE}'
+          service-name: dashfy-backend
+
+workflows:
+  deploy:
+    jobs:
+      - preload:
+          context: Dashfy App
+      - build:
+          context: Dashfy App
+          requires:
+            - preload
+      - deploy:
+          context: Dashfy App
+          requires:
+            - build
