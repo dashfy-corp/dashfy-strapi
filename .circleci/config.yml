@@ -1,0 +1,9 @@
+version: 2.1
+
+defaults: &defaults
+  working_directory: ~/dashfy
+  docker:
+    - image: "circleci/node:10.16.0"
+      auth:
+        username: $DOCKERHUB_USERNAME
+        password: $DOCKERHUB_PASSWORD
