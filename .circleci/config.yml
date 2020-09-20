@@ -33,6 +33,7 @@ jobs:
   build:
     executor: gcp-gcr/default
     working_directory: ~/app
+    environment:
     steps:
       - checkout
       - restore_cache: *restore_dependencies
