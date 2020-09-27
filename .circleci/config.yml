@@ -33,7 +33,6 @@ jobs:
   build:
     executor: gcp-gcr/default
     working_directory: ~/app
-    environment:
     steps:
       - checkout
       - restore_cache: *restore_dependencies
@@ -57,18 +56,18 @@ jobs:
       - cloudrun/deploy:
           image: 'us.gcr.io/${GOOGLE_PROJECT_ID}/dashfy/backend:latest'
           region: '${GOOGLE_COMPUTE_ZONE}'
-          service-name: dashfy-backend
+          service-name: dashfy-backend-${ENVIRONMENT}
 
 workflows:
   deploy:
     jobs:
       - preload:
-          context: Dashfy App
+          context: $ENVIRONMENT_CONTEXT
       - build:
-          context: Dashfy App
+          context: $ENVIRONMENT_CONTEXT
           requires:
             - preload
       - deploy:
-          context: Dashfy App
+          context: $ENVIRONMENT_CONTEXT
           requires:
             - build
