@@ -62,12 +62,12 @@ workflows:
   deploy:
     jobs:
       - preload:
-          context: "${ENVIRONMENT_CONTEXT}"
+          context: '${ENVIRONMENT_CONTEXT}'
       - build:
-          context: "${ENVIRONMENT_CONTEXT}"
+          context: '${ENVIRONMENT_CONTEXT}'
           requires:
             - preload
       - deploy:
-          context: "${ENVIRONMENT_CONTEXT}"
+          context: '${ENVIRONMENT_CONTEXT}'
           requires:
             - build
