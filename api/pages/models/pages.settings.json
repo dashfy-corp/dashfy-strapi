@@ -1,0 +1,51 @@
+{
+  "collectionName": "pages",
+  "info": {
+    "name": "pages",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false,
+    "timestamps": true,
+    "populateCreatorFields": true
+  },
+  "attributes": {
+    "title": {
+      "label": "Title",
+      "type": "string",
+      "default": "Page Title",
+      "required": true,
+      "min": 3,
+      "max": 160
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "subtitle": {
+      "label": "Sub-Title",
+      "type": "string"
+    },
+    "content": {
+      "label": "Content",
+      "type": "richtext",
+      "required": true
+    },
+    "cover": {
+      "label": "Cover",
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    },
+    "metadata": {
+      "label": "Metadata",
+      "type": "json"
+    },
+    "blocks": {
+      "label": "Block's",
+      "type": "component",
+      "repeatable": true,
+      "component": "page.blocks"
+    }
+  }
+}
