@@ -106,7 +106,7 @@ coverage
 ############################
 # Strapi
 ############################
-
+.idea
 .env
 license.txt
 exports
