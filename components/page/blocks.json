@@ -1,0 +1,42 @@
+{
+  "connection": "default",
+  "collectionName": "components_page_blocks",
+  "info": {
+    "name": "block",
+    "icon": "arrow-circle-right"
+  },
+  "options": {},
+  "attributes": {
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "title": {
+      "label": "Title",
+      "type": "string",
+      "default": "Page Title",
+      "required": true,
+      "min": 3,
+      "max": 160
+    },
+    "subtitle": {
+      "label": "Sub-Title",
+      "type": "string"
+    },
+    "content": {
+      "label": "Content",
+      "type": "richtext",
+      "required": true
+    },
+    "cover": {
+      "label": "Page Cover",
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    },
+    "metadata": {
+      "label": "Page Metadata",
+      "type": "json"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/pages",
+      "handler": "pages.find",
+      "config": {
+        "policies": [
+          "global::isAuthenticated"
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/pages/count",
+      "handler": "pages.count",
+      "config": {
+        "policies": [
+          "global::isAuthenticated"
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/pages/:id",
+      "handler": "pages.findOne",
+      "config": {
+        "policies": [
+          "global::isAuthenticated"
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/pages",
+      "handler": "pages.create",
+      "config": {
+        "policies": [
+          "global::isAuthenticated"
+        ]
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/pages/:id",
+      "handler": "pages.update",
+      "config": {
+        "policies": [
+          "global::isAuthenticated"
+        ]
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/pages/:id",
+      "handler": "pages.delete",
+      "config": {
+        "policies": [
+          "global::isAuthenticated"
+        ]
+      }
+    }
+  ]
+}

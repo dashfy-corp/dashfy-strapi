@@ -1,11 +1,21 @@
 FROM strapi/base
 
+ARG ENVIRONMENT
+ARG DATABASE_CLIENT
+ARG API_PORT
+ARG ADMIN_PORT
+
 WORKDIR /usr/source/app
 
 COPY package*.json ./
 
-RUN npm i
+ENV NODE_ENV $ENVIRONMENT
 
-EXPOSE 1337
+RUN npm ci
+
+RUN if [ "$DATABASE_CLIENT" = "postgres" ] ; then npm i --save pg ; fi
+
+EXPOSE $API_PORT
+EXPOSE $ADMIN_PORT
 
 CMD ["npm", "run", "develop"]
