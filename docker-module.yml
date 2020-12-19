@@ -1,8 +1,9 @@
+type: strapi
 development:
   services:
     {MODULE_NAME}:
       image: dashfy/dev-{MODULE_NAME}
-      env_file: .env
+      env_file: ./modules/{MODULE_NAME}/.env
       build:
         context: ./modules/{MODULE_NAME}
         args:
