@@ -1,0 +1,14 @@
+{
+  "name": "strapi",
+  "type": "module",
+  "title": "Strapi",
+  "category": "cms",
+  "description": "Design APIs fast, manage content easily.",
+  "repository": "https://github.com/dashfy-corp/dashfy-strapi",
+  "website": "https://strapi.io",
+  "documentation": "https://strapi.io/documentation/developer-docs/latest/getting-started/introduction.html",
+  "free": true,
+  "preview_url": "https://strapi.io/why-strapi",
+  "purchase_url": "https://strapi.io/pricing",
+  "pro_version_available": false
+}
