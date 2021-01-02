@@ -1,6 +1,6 @@
 {
   "name": "strapi",
-  "type": "module",
+  "type": "strapi",
   "title": "Strapi",
   "category": "cms",
   "description": "Design APIs fast, manage content easily.",
