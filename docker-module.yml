@@ -7,10 +7,10 @@ development:
       build:
         context: ./modules/{MODULE_NAME}
         args:
-          ENVIRONMENT: $ENVIRONMENT
-          DATABASE_CLIENT: $DATABASE_CLIENT
-          API_PORT: $API_PORT
-          ADMIN_PORT: $ADMIN_PORT
+          ENVIRONMENT: ${UPPERCASE_MODULE_NAME}_ENVIRONMENT
+          DATABASE_CLIENT: ${UPPERCASE_MODULE_NAME}_DATABASE_CLIENT
+          API_PORT: ${UPPERCASE_MODULE_NAME}_API_PORT
+          ADMIN_PORT: ${UPPERCASE_MODULE_NAME}_ADMIN_PORT
       container_name: dashfy-dev-{MODULE_NAME}
       restart: unless-stopped
       networks:
@@ -27,8 +27,8 @@ development:
         - "./modules/{MODULE_NAME}/package-lock.json:/usr/source/app/package-lock.json"
         - "./modules/{MODULE_NAME}/favicon.ico:/usr/source/app/favicon.ico"
       ports:
-        - "$API_PORT:$API_PORT"
-        - "$ADMIN_PORT:$ADMIN_PORT"
+        - "$API_PORT:${UPPERCASE_MODULE_NAME}_API_PORT"
+        - "$ADMIN_PORT:${UPPERCASE_MODULE_NAME}_ADMIN_PORT"
 
 production:
   services:
@@ -38,14 +38,14 @@ production:
         context: ./modules/{MODULE_NAME}
         dockerfile: Dockerfile.prod
         args:
-          ENVIRONMENT: $ENVIRONMENT
-          DATABASE_CLIENT: $DATABASE_CLIENT
-          API_PORT: $API_PORT
-          ADMIN_PORT: $ADMIN_PORT
+          ENVIRONMENT: ${UPPERCASE_MODULE_NAME}_ENVIRONMENT
+          DATABASE_CLIENT: ${UPPERCASE_MODULE_NAME}_DATABASE_CLIENT
+          API_PORT: ${UPPERCASE_MODULE_NAME}_API_PORT
+          ADMIN_PORT: ${UPPERCASE_MODULE_NAME}_ADMIN_PORT
       container_name: dashfy-{MODULE_NAME}
       restart: unless-stopped
       networks:
         - dashfy-network
       ports:
-        - "$API_PORT:$API_PORT"
-        - "$ADMIN_PORT:$ADMIN_PORT"
+        - "$API_PORT:${UPPERCASE_MODULE_NAME}_API_PORT"
+        - "$ADMIN_PORT:${UPPERCASE_MODULE_NAME}_ADMIN_PORT"
